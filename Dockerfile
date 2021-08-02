@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     zip \
     libpq-dev libcurl4-gnutls-dev \
-    unzip \
-    libcurl4-openssl-dev pkg-config libssl-dev
+    unzip
+
+RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
 
 RUN pecl install mongodb \
     &&  echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongo.ini
