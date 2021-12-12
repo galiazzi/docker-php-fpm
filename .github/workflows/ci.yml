@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, "8.0" ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, "8.0" ]
 
 env:
   IMAGE_NAME: dayan/php-laravel
@@ -23,8 +23,14 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
       run: |
         echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USER" --password-stdin
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $IMAGE_NAME:latest
 
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME:${GITHUB_REF##*/}
     - name: Docker Push
-      run: docker push $IMAGE_NAME
+      run: docker push $IMAGE_NAME:${GITHUB_REF##*/}
+
+    - name: Latest tag
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: |
+        docker tag $IMAGE_NAME:${GITHUB_REF##*/} $IMAGE_NAME:latest
+        docker push $IMAGE_NAME
