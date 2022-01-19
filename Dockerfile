@@ -1,8 +1,6 @@
 FROM php:8.1-fpm
 
-# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    curl \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
@@ -16,7 +14,7 @@ RUN pecl install mongodb \
     &&  echo "extension=mongodb.so" > $PHP_INI_DIR/conf.d/mongo.ini
 
 RUN docker-php-ext-install \
-    bcmath pgsql pdo_pgsql curl \
+    bcmath pgsql pdo_pgsql \
     sockets gd
 
 RUN pecl install redis && docker-php-ext-enable redis

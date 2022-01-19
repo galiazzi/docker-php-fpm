@@ -1,1 +1,3 @@
-docker-php-laravel
+docker-php-fpm
+
+Simple docker that extends standard php-fpm docker
