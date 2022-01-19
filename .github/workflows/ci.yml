@@ -3,8 +3,6 @@ name: Docker Image CI
 on:
   push:
     branches: [ "*" ]
-  pull_request:
-    branches: [ "*" ]
 
 env:
   IMAGE_NAME: dayan/php-fpm
@@ -27,6 +25,7 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $IMAGE_NAME:${GITHUB_REF##*/}
     - name: Docker Push
+      if: ${{ github.ref != 'refs/heads/main' }}
       run: docker push $IMAGE_NAME:${GITHUB_REF##*/}
 
     - name: Latest tag
