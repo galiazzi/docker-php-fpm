@@ -21,3 +21,6 @@ RUN pecl install redis && docker-php-ext-enable redis
 
 RUN docker-php-ext-install opcache
 COPY opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
+
+RUN apt-get install -y libgmp-dev \
+    && docker-php-ext-install gmp
