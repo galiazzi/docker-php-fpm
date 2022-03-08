@@ -24,3 +24,12 @@ COPY opcache.ini $PHP_INI_DIR/conf.d/opcache.ini
 
 RUN apt-get install -y libgmp-dev \
     && docker-php-ext-install gmp
+
+RUN pecl install apcu \
+    && docker-php-ext-enable apcu \
+    && pecl clear-cache
+
+RUN docker-php-ext-configure intl \
+    && docker-php-ext-install intl \
+    && docker-php-ext-enable intl
+
