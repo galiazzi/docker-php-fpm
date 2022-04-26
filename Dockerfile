@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
 
 RUN docker-php-ext-install \
-    bcmath pgsql pdo_pgsql sockets
+    bcmath pgsql pdo_pgsql sockets zip soap
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install gd
