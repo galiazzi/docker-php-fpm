@@ -11,10 +11,10 @@ RUN apt-get update && apt-get install -y \
     libpq-dev libcurl4-gnutls-dev \
     unzip
 
-RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
+RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev libzip-dev
 
 RUN docker-php-ext-install \
-    bcmath pgsql pdo_pgsql sockets zip soap
+    bcmath pgsql pdo_pgsql sockets zip xml soap
 
 RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install gd
