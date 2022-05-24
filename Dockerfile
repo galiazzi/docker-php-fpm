@@ -7,16 +7,15 @@ RUN apt-get update && apt-get install -y \
     libwebp-dev \
     libfreetype6-dev \
     libjpeg-dev \
-    zip \
-    libpq-dev libcurl4-gnutls-dev \
-    unzip
+    libpq-dev \
+    libcurl4-openssl-dev pkg-config libssl-dev libzip-dev \
+    unzip \
+    zip
 
-RUN apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev libzip-dev
-
-RUN docker-php-ext-install \
-    bcmath pgsql pdo_pgsql sockets zip xml soap
-
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
+RUN docker-php-ext-install bcmath pgsql pdo_pgsql sockets zip xml soap \
+    && docker-php-ext-configure pcntl --enable-pcntl \
+    && docker-php-ext-install pcntl \
+    && docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install gd
 
 RUN apt-get install -y libmagickwand-dev libmagickcore-dev imagemagick \
