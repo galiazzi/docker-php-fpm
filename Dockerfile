@@ -15,7 +15,7 @@ RUN pecl install mongodb \
 
 RUN docker-php-ext-install \
     bcmath pgsql pdo_pgsql \
-    sockets gd
+    sockets gd zip xml
 
 RUN pecl install redis && docker-php-ext-enable redis
 
