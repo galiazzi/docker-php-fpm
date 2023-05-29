@@ -30,7 +30,9 @@ jobs:
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USER" --password-stdin
 
       - name: Build the Docker image
-        run: docker buildx build . --file Dockerfile --platform linux/amd64,linux/arm64 --tag $IMAGE_NAME:${GITHUB_REF##*/}
+        run: |
+            docker buildx build . --file Dockerfile --platform linux/amd64,linux/arm64
+            --tag $IMAGE_NAME:${GITHUB_REF##*/} --load
 
       - name: Docker Push
         if: ${{ github.ref != 'refs/heads/main' }}
