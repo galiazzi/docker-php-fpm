@@ -16,7 +16,8 @@ RUN docker-php-ext-install bcmath pgsql pdo_pgsql sockets zip xml soap \
     && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl \
     && docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp \
-    && docker-php-ext-install gd
+    && docker-php-ext-install gd \
+    && docker-php-ext-install exif
 
 RUN apt-get install -y libmagickwand-dev libmagickcore-dev imagemagick \
     && pecl install imagick \
