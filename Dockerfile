@@ -20,12 +20,12 @@ RUN docker-php-ext-install bcmath pgsql pdo_pgsql sockets zip xml soap \
     && docker-php-ext-install exif
 
 RUN apt-get install -y libmagickwand-dev libmagickcore-dev imagemagick \
-    curl -o /tmp/imagick.tar.gz https://github.com/Imagick/imagick/archive/7088edc353f53c4bc644573a79cdcd67a726ae16.tar.gz \
+    && curl -L -o /tmp/imagick.tar.gz https://github.com/Imagick/imagick/archive/7088edc353f53c4bc644573a79cdcd67a726ae16.tar.gz \
     && tar --strip-components=1 -xf /tmp/imagick.tar.gz \
     && phpize \
     && ./configure \
     && make \
-    && make install\
+    && make install \
     && echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
     && rm -rf /tmp/*
 # RUN apt-get install -y libmagickwand-dev libmagickcore-dev imagemagick \
